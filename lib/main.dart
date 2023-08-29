@@ -31,6 +31,7 @@ class DocumentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (title, :modified) = document.metadata;
+    final blocks = document.getBlocks();
 
     return Scaffold(
       appBar: AppBar(
@@ -38,9 +39,13 @@ class DocumentScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Center(
-            child: Text(
-              'Last modified $modified',
+          Text('Last modified: $modified'), // Modify from here
+          Expanded(
+            child: ListView.builder(
+              itemCount: blocks.length,
+              itemBuilder: (context, index) {
+                return BlockWidget(block: blocks[index]);
+              },
             ),
           ),
         ],
